@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-dark);
+  padding: 2rem;
+
+  a {
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+      color: var(--color-brand);
+    }
+  }
+}

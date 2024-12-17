@@ -1,0 +1,13 @@
+.button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius-sm);
+}
+.brand {
+  background-color: var(--color-brand);
+  color: var(--color-dark-2);
+}
+.regular {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
