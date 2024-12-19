@@ -17,33 +17,40 @@
 
 // };
 import { Link } from "react-router-dom";
-import Button from "../../ui/Button";
 import Image from "../../ui/Image";
 import styles from "./MovieItem.module.css";
-function MovieItem() {
+import { formatNumber } from "../../utils/helpers";
+import { tmdbImageBaseUrl } from "../../services/apiTMDB";
+function MovieItem({ movie }) {
   return (
     <li className={styles.movie}>
       <div>
-        <Image
-          src="https://th.bing.com/th/id/OIP.5nVB9vXv0spgByfgIHvOqQHaLH?rs=1&pid=ImgDetMain"
-          alt="movie poster"
-        />
+        <div className={styles.img_container}>
+          <Image
+            src={`${tmdbImageBaseUrl}/${movie.poster_path}`}
+            alt={`${movie.title} poster`}
+          />
+        </div>
         <div className={styles.data}>
-          <h3>Movie name</h3>
+          <h3 className={styles.title}>{movie.title}</h3>
           <div className={styles.subdata}>
-            <span>2021</span>
-            <span>* 5</span>
+            <span>
+              {movie.release_date === ""
+                ? "N/A"
+                : movie.release_date.split("-")[0]}
+            </span>
+            <span>* {formatNumber(movie.vote_average, 1)}</span>
           </div>
         </div>
       </div>
       {/* Overlay / onHover */}
       <div className={styles.overlay}>
         <ul className={styles.genres}>
-          <li>Action</li>
-          <li>Family</li>
-          <li>Animation</li>
+          <li>Genre #1</li>
+          <li>Genre #2</li>
+          <li>Genre #3</li>
         </ul>
-        <Link to="/movie/1" className={styles.cta}>
+        <Link to={`/movie/${movie.id}`} className={styles.cta}>
           View
         </Link>
       </div>

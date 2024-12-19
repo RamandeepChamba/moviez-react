@@ -1,0 +1,33 @@
+.cast {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+
+  li {
+    /* 2:3 */
+    width: 18rem;
+    height: calc(3 / 2 * 18rem);
+    overflow: hidden;
+    @media (max-width: 1600px) {
+      width: 16rem;
+      height: calc(3 / 2 * 16rem);
+    }
+    @media (max-width: 1450px) {
+      width: 14rem;
+      height: calc(3 / 2 * 14rem);
+    }
+    @media (max-width: 1350px) {
+      width: 13rem;
+      height: calc(3 / 2 * 13rem);
+    }
+    @media (max-width: 1250px) {
+      width: 12rem;
+      height: calc(3 / 2 * 12rem);
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+}

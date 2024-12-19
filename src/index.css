@@ -2,18 +2,29 @@
   --color-brand: #f59e0b;
   --color-dark: #0c0a09;
   --color-light: #fafaf9;
+  --color-light-2: #f5f5f4;
+  --color-light-3: #e7e5e4;
   --color-dark-2: #1c1917;
 
   --border-radius-sm: 2px;
   --border-radius-lg: 1rem;
 
   --border-radius-pill: 25rem;
+
+  --padding-x: 4rem;
 }
 *,
 *::after,
 *::before {
   margin: 0;
   box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem;
+  line-height: 1.4;
 }
 a:link {
   text-decoration: none;

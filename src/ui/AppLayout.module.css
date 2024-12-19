@@ -1,4 +1,15 @@
 .layout {
   min-height: 100vh;
   background-color: var(--color-dark-2);
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+}
+.main {
+  display: flex;
+  padding: 0 10rem;
+  margin: 5rem 0;
+
+  @media (max-width: 600px) {
+    padding: 0 2rem;
+  }
 }

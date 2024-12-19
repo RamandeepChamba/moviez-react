@@ -3,9 +3,29 @@
   background-color: var(--color-light);
   border-radius: var(--border-radius-lg);
   overflow: hidden;
+
+  &:hover .overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.img_container {
+  overflow: hidden;
+
+  img {
+    height: 30rem;
+    object-fit: cover;
+    object-position: top;
+  }
 }
 .data {
   padding: 0.5rem;
+
+  .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   .subdata {
     display: flex;
@@ -20,6 +40,9 @@
   height: 100%;
   background-color: rgba(245, 158, 11, 0.8);
   padding: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.4s all;
 
   .genres {
     display: flex;

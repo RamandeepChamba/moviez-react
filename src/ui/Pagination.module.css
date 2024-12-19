@@ -1,0 +1,17 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--color-light);
+
+  button {
+    background-color: var(--color-dark);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border-radius: var(--border-radius-pill);
+  }
+}

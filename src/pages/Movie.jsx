@@ -1,5 +1,10 @@
+import MovieDetailed from "../features/movie/MovieDetailed/MovieDetailed";
 function Movie() {
-  return <div>Movie #1</div>;
+  return (
+    <>
+      <MovieDetailed />
+    </>
+  );
 }
 
 export default Movie;

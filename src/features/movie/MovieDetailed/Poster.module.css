@@ -1,0 +1,28 @@
+.poster {
+  position: relative;
+  flex-basis: 60rem;
+  flex-shrink: 0;
+  background-color: var(--color-dark);
+  /* overflow: hidden; */
+
+  @media (max-width: 1600px) {
+    flex-basis: 57rem;
+  }
+  @media (max-width: 1500px) {
+    flex-basis: 50rem;
+  }
+  @media (max-width: 1350px) {
+    flex-basis: 45rem;
+  }
+  @media (max-width: 1250px) {
+    flex-basis: 42rem;
+  }
+
+  img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    object-fit: contain;
+  }
+}
