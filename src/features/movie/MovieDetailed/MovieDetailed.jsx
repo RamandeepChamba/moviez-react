@@ -110,17 +110,24 @@ import Header from "./Header";
 import Overview from "./Overview";
 import Poster from "./Poster";
 import styles from "./MovieDetailed.module.css";
+import { createContext } from "react";
 
-function MovieDetailed() {
+export const MovieContext = createContext();
+
+function MovieDetailed({ movie }) {
   return (
-    <div className={styles.layout}>
-      <Poster />
-      <div className={styles.details}>
-        <Header />
-        <Overview />
-        <Cast />
+    <MovieContext.Provider value={{ movie: movie.details, cast: movie.cast }}>
+      <div className={styles.centerContainer}>
+        <div className={styles.layout}>
+          <Poster />
+          <div className={styles.details}>
+            <Header />
+            <Overview />
+            <Cast />
+          </div>
+        </div>
       </div>
-    </div>
+    </MovieContext.Provider>
   );
 }
 

@@ -28,10 +28,10 @@
   gap: 1rem;
 
   li {
-    background-color: var(--color-brand);
+    /* background-color: var(--color-brand);
     color: var(--color-dark-2);
-    padding: 5px;
+    padding: 5px 1rem;
     border-radius: var(--border-radius-pill);
-    font-size: 1.4rem;
+    font-size: 1.4rem; */
   }
 }

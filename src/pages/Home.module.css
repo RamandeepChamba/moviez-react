@@ -1,0 +1,12 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: var(--v-spacing-sm);
+}
+.listHeader {
+  color: var(--color-light-3);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}

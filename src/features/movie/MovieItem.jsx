@@ -16,11 +16,13 @@
 //   vote_average: 4.19,
 
 // };
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import StyledLink from "../../ui/StyledLink";
 import Image from "../../ui/Image";
 import styles from "./MovieItem.module.css";
-import { formatNumber } from "../../utils/helpers";
 import { tmdbImageBaseUrl } from "../../services/apiTMDB";
+import { formatDecimalPlaces } from "../../utils/helpers";
+import { HiStar } from "react-icons/hi2";
 function MovieItem({ movie }) {
   return (
     <li className={styles.movie}>
@@ -39,20 +41,30 @@ function MovieItem({ movie }) {
                 ? "N/A"
                 : movie.release_date.split("-")[0]}
             </span>
-            <span>* {formatNumber(movie.vote_average, 1)}</span>
+            <span className={styles.rating}>
+              <HiStar />
+              {formatDecimalPlaces(movie.vote_average, 1)}
+            </span>
           </div>
         </div>
       </div>
       {/* Overlay / onHover */}
       <div className={styles.overlay}>
-        <ul className={styles.genres}>
+        {/* <ul className={styles.genres}>
           <li>Genre #1</li>
           <li>Genre #2</li>
           <li>Genre #3</li>
-        </ul>
-        <Link to={`/movie/${movie.id}`} className={styles.cta}>
+        </ul> */}
+        <StyledLink
+          to={`/movie/${movie.id}`}
+          className={styles.cta}
+          corners="pill"
+        >
           View
-        </Link>
+        </StyledLink>
+        {/* <Link to={`/movie/${movie.id}`} className={styles.cta}>
+          View
+        </Link> */}
       </div>
     </li>
   );

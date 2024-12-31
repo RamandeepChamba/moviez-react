@@ -1,7 +1,5 @@
 # TODOS
 
-- Pagination
-- Movie Detail
 - Genres in MovieItem overlay
 - more...
 

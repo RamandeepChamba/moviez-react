@@ -1,14 +1,12 @@
-import styles from "./Overview.module.css";
+import { useContext } from "react";
+import { MovieContext } from "./MovieDetailed";
+
 function Overview() {
+  const { movie } = useContext(MovieContext);
   return (
-    <div className={styles.overview}>
+    <div>
       <h2>Overview</h2>
-      <p>
-        Harry, Ron and Hermione continue their quest to vanquish the evil
-        Voldemort once and for all. Just as things begin to look hopeless for
-        the young wizards, Harry discovers a trio of magical objects that endow
-        him with powers to rival Voldemort's formidable skills.
-      </p>
+      <p>{movie.overview}</p>
     </div>
   );
 }

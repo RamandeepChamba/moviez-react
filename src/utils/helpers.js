@@ -1,4 +1,4 @@
-export function formatNumber(num, decimalPlaces) {
+export function formatDecimalPlaces(num, decimalPlaces) {
   const fixedNum = num.toFixed(decimalPlaces);
   const parsedNum = parseFloat(fixedNum);
 
@@ -10,13 +10,13 @@ export function formatNumber(num, decimalPlaces) {
   }
 }
 
-export function getUrlSearchParams(urlString, paramsToGet) {
-  const url = new URL(urlString);
-  const searchParams = new URLSearchParams(url.search);
+// export function getUrlSearchParams(urlString, paramsToGet) {
+//   const url = new URL(urlString);
+//   const searchParams = new URLSearchParams(url.search);
 
-  const params = {};
+//   const params = {};
 
-  paramsToGet.forEach((param) => (params[param] = searchParams.get(param)));
+//   paramsToGet.forEach((param) => (params[param] = searchParams.get(param)));
 
-  return params;
-}
+//   return params;
+// }

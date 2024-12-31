@@ -1,5 +1,5 @@
 import styles from "./Button.module.css";
-function Button({ children, type, variation, className, onClick }) {
+function Button({ children, type, variation, className = "", onClick }) {
   return (
     <button
       type={type}

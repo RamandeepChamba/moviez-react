@@ -1,6 +1,5 @@
 .movie {
   position: relative;
-  background-color: var(--color-light);
   border-radius: var(--border-radius-lg);
   overflow: hidden;
 
@@ -10,8 +9,7 @@
   }
 }
 .img_container {
-  overflow: hidden;
-
+  display: flex;
   img {
     height: 30rem;
     object-fit: cover;
@@ -20,6 +18,7 @@
 }
 .data {
   padding: 0.5rem;
+  background-color: var(--color-light);
 
   .title {
     white-space: nowrap;
@@ -30,6 +29,15 @@
   .subdata {
     display: flex;
     justify-content: space-between;
+  }
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    svg {
+      color: var(--color-brand-dark);
+    }
   }
 }
 .overlay {
@@ -64,5 +72,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 0.5rem 1rem;
+    background-color: var(--color-secondary);
   }
 }
