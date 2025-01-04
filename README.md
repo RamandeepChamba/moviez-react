@@ -18,11 +18,11 @@
 
 # Pages
 
-- Homepage: ('/')
-- Fetch and display movie list: ('/movie/search/:query/:page')
-- Displaying movie details: ('/movie/:id)
-- Discover popular or top_rated: ('/movie/list/:topic/:page')
-- Discover by person or genre ('/movie/discover/:filter/:id/:page')
+- Homepage: ('/moviez-react')
+- Fetch and display movie list: ('/moviez-react/movie/search/:query/:page')
+- Displaying movie details: ('/moviez-react/movie/:id)
+- Discover popular or top_rated: ('/moviez-react/movie/list/:topic/:page')
+- Discover by person or genre ('/moviez-react/movie/discover/:filter/:id/:page')
 
 # Technologies
 
