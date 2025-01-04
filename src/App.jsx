@@ -15,27 +15,27 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: "/moviez-react",
         element: <Home />,
         loader: popularAndTopRatedLoader,
       },
       {
-        path: "/movie/search/:query/:page",
+        path: "/moviez-react/movie/search/:query/:page",
         element: <Movies />,
         loader: searchResultsLoader,
       },
       {
-        path: "/movie/:id",
+        path: "/moviez-react/movie/:id",
         element: <Movie />,
         loader: mediaDetailsLoader,
       },
       {
-        path: "/movie/list/:topic/:page",
+        path: "/moviez-react/movie/list/:topic/:page",
         element: <Movies />,
         loader: topicListLoader,
       },
       {
-        path: "/movie/discover/:filter/:id/:page",
+        path: "/moviez-react/movie/discover/:filter/:id/:page",
         element: <Movies />,
         loader: discoverListLoader,
       },

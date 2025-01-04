@@ -1,4 +1,5 @@
 const API_URL = "https://api.themoviedb.org/3";
+const BASE_SITE_URL = "/moviez-react";
 
 async function getFromApi(url) {
   const accessToken = `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`;
@@ -129,15 +130,15 @@ export async function getGenreById(id) {
 
 // search query
 export function createSearchUrl({ query, type = "movie", page = 1 }) {
-  return `/${type}/search/${query}/${page}`;
+  return `${BASE_SITE_URL}/${type}/search/${query}/${page}`;
 }
 // popular / top_rated
 export function createTopicListUrl({ type, topic, page = 1 }) {
-  return `/${type}/list/${topic}/${page}`;
+  return `${BASE_SITE_URL}/${type}/list/${topic}/${page}`;
 }
 
 export function createDiscoverUrl({ type, filter, id, page = 1 }) {
-  return `/${type}/discover/${filter}/${id}/${page}`;
+  return `${BASE_SITE_URL}/${type}/discover/${filter}/${id}/${page}`;
 }
 
 export const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/w500";

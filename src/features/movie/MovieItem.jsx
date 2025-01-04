@@ -56,7 +56,7 @@ function MovieItem({ movie }) {
           <li>Genre #3</li>
         </ul> */}
         <StyledLink
-          to={`/movie/${movie.id}`}
+          to={`/moviez-react/movie/${movie.id}`}
           className={styles.cta}
           corners="pill"
         >

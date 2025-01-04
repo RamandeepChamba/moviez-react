@@ -5,7 +5,7 @@ import styles from "./Header.module.css";
 function Header() {
   return (
     <header className={styles.header}>
-      <Link to="/">Moviez</Link>
+      <Link to="/moviez-react">Moviez</Link>
       <SearchMovie />
     </header>
   );
