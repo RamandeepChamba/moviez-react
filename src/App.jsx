@@ -4,6 +4,7 @@ import Movies, {
   searchResultsLoader,
   topicListLoader,
   discoverListLoader,
+  filteredMoviesLoader,
 } from "./pages/Movies";
 import Movie, { loader as mediaDetailsLoader } from "./pages/Movie";
 import AppLayout from "./ui/AppLayout";
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
         path: "/moviez-react/movie/discover/:filter/:id/:page",
         element: <Movies />,
         loader: discoverListLoader,
+      },
+      {
+        path: "/moviez-react/movie/filter/:sortBy/:genres/:page",
+        element: <Movies />,
+        loader: filteredMoviesLoader,
       },
     ],
   },

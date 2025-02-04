@@ -86,17 +86,16 @@ export async function getPopularAndTopRated() {
   }
 }
 
-// Discover by filters i.e. by genre, cast etc
-export async function getDiscoveredMedia({ type, page, filter, id: filterId }) {
-  const filters = {
-    genre: "with_genres",
-    cast: "with_cast",
-  };
-  // discover by cast
-  // https://api.themoviedb.org/3/discover/movie?page=1&with_cast=16828
-  // discover by genre
-  // https://api.themoviedb.org/3/discover/movie?page=1&with_genres=35
-  const url = `${API_URL}/discover/${type}?page=${page}&${filters[filter]}=${filterId}`;
+// ===== Filters =======
+// (page, filters = [{name: 'sort_by', value='...'}, {...}])
+// 'https://api.themoviedb.org/3/discover/movie?page=1&sort_by=popularity.desc&with_genres=id_1|id_2|...'
+
+export async function getDiscoveredMedia({ type = "movie", page, filters }) {
+  const filtersStr = filters.reduce(
+    (acc, filter) => `${acc}&${filter.name}=${filter.value}`,
+    ""
+  );
+  const url = `${API_URL}/discover/${type}?page=${page}${filtersStr}`;
   try {
     const results = await getFromApi(url);
     return results;
@@ -105,9 +104,21 @@ export async function getDiscoveredMedia({ type, page, filter, id: filterId }) {
   }
 }
 
+// ===== Get genres =======
+// 'https://api.themoviedb.org/3/genre/movie/list'
+// ================
+export async function getGenres({ type = "movie" }) {
+  const url = `${API_URL}/genre/${type}/list`;
+  try {
+    const genres = await getFromApi(url);
+    return genres.genres;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
 export async function getPersonById(id) {
   const url = `${API_URL}/person/${id}`;
-  console.log(url);
   try {
     const person = await getFromApi(url);
     return person.name;
@@ -139,6 +150,16 @@ export function createTopicListUrl({ type, topic, page = 1 }) {
 
 export function createDiscoverUrl({ type, filter, id, page = 1 }) {
   return `${BASE_SITE_URL}/${type}/discover/${filter}/${id}/${page}`;
+}
+
+export function createFilteredListUrl({
+  type = "movie",
+  sortBy,
+  genres,
+  page = 1,
+}) {
+  // /moviez-react/movie/filter/:query/:sortBy/:genres
+  return `${BASE_SITE_URL}/${type}/filter/${sortBy}/${genres}/${page}`;
 }
 
 export const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/w500";

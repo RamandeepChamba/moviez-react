@@ -2,6 +2,7 @@ import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import MovieList from "../features/movie/MovieList";
 import {
   createDiscoverUrl,
+  createFilteredListUrl,
   createSearchUrl,
   createTopicListUrl,
   getDiscoveredMedia,
@@ -12,6 +13,7 @@ import {
 } from "../services/apiTMDB";
 import Pagination from "../ui/Pagination";
 import Heading from "../ui/Heading";
+import Filters from "../features/filters/Filters";
 
 function Movies() {
   const loaderData = useLoaderData();
@@ -46,13 +48,23 @@ function Movies() {
       // url for provided search results page
       gotoUrl = createSearchUrl({ query, type: "movie", page });
     }
+
+    if (urlParams.genres) {
+      // url for media list after applying filters
+      gotoUrl = createFilteredListUrl({
+        sortBy: urlParams.sortBy,
+        genres: urlParams.genres,
+        page,
+      });
+    }
     // navigate to the page
     navigate(gotoUrl);
   }
 
   return (
     <div>
-      <Heading>Showing results for &ldquo;{resultsFor}&rdquo;</Heading>
+      <Filters />
+      <Heading>Showing results for &ldquo;{resultsFor ?? ""}&rdquo;</Heading>
       <MovieList movies={data?.results} />;
       <Pagination
         totalPages={data.total_pages}
@@ -89,8 +101,14 @@ export async function topicListLoader({ params }) {
 
 export async function discoverListLoader({ params }) {
   try {
-    const results = await getDiscoveredMedia({ ...params, type: "movie" });
-
+    const filterOptions = {
+      genre: "with_genres",
+      cast: "with_cast",
+    };
+    const results = await getDiscoveredMedia({
+      page: params.page,
+      filters: [{ name: filterOptions[params.filter], value: params.id }],
+    });
     // calculate resultsFor
     let resultsFor;
     if (params.filter === "cast") {
@@ -102,6 +120,26 @@ export async function discoverListLoader({ params }) {
       resultsFor = await getGenreById(params.id);
     }
     return { results, resultsFor };
+  } catch (err) {
+    console.error(err);
+    throw new Error(err.message);
+  }
+}
+
+export async function filteredMoviesLoader({ params }) {
+  try {
+    const sortOptions = {
+      popular: "popularity.desc",
+      rating: "vote_average.desc",
+    };
+    const results = await getDiscoveredMedia({
+      page: params.page,
+      filters: [
+        { name: "sort_by", value: sortOptions[params.sortBy] },
+        { name: "with_genres", value: params.genres },
+      ],
+    });
+    return { results };
   } catch (err) {
     console.error(err);
     throw new Error(err.message);

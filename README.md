@@ -1,5 +1,6 @@
 # TODOS
 
+- Make UI better for filters
 - Genres in MovieItem overlay
 - Add feature for TV series
 - more...
