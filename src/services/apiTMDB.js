@@ -159,7 +159,9 @@ export function createFilteredListUrl({
   page = 1,
 }) {
   // /moviez-react/movie/filter/:query/:sortBy/:genres
-  return `${BASE_SITE_URL}/${type}/filter/${sortBy}/${genres}/${page}`;
+  return `${BASE_SITE_URL}/${type}/filter/${sortBy ? sortBy : "popular"}/${
+    genres ? genres : "all"
+  }/${page}`;
 }
 
 export const tmdbImageBaseUrl = "https://image.tmdb.org/t/p/w500";

@@ -1,11 +1,18 @@
 import styles from "./Button.module.css";
-function Button({ children, type, variation, className = "", onClick }) {
+function Button({
+  children,
+  type,
+  variation,
+  size = "md",
+  className = "",
+  onClick,
+}) {
   return (
     <button
       type={type}
       className={`${styles.button} ${
         variation ? styles[variation] : styles.regular
-      } ${className}`}
+      } ${styles[size]} ${className}`}
       onClick={onClick}
     >
       {children}

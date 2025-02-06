@@ -132,12 +132,15 @@ export async function filteredMoviesLoader({ params }) {
       popular: "popularity.desc",
       rating: "vote_average.desc",
     };
+    const filters = [{ name: "sort_by", value: sortOptions[params.sortBy] }];
+
+    if (params.genres !== "all") {
+      filters.push({ name: "with_genres", value: params.genres });
+    }
+
     const results = await getDiscoveredMedia({
       page: params.page,
-      filters: [
-        { name: "sort_by", value: sortOptions[params.sortBy] },
-        { name: "with_genres", value: params.genres },
-      ],
+      filters,
     });
     return { results };
   } catch (err) {

@@ -1,0 +1,14 @@
+.checkbox-hidden {
+  visibility: hidden;
+}
+.genre-label {
+  display: inline-block;
+  cursor: pointer;
+  background-color: #999;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+}
+.label-checked {
+  background-color: var(--color-brand);
+  color: var(--color-dark-2);
+}

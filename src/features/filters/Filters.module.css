@@ -1,0 +1,32 @@
+.genres-list {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  margin-bottom: 2rem;
+}
+.filter-heading {
+  color: var(--color-light-3);
+  font-weight: bold;
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+}
+.sortBy-options {
+  display: flex;
+  color: var(--color-light-3);
+  gap: 1rem;
+
+  :global .form-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
+.submit {
+  margin: 2rem 0 1rem 0;
+}
+.toggler {
+  margin-bottom: 2rem;
+}
+.hasFilters {
+  background-color: green;
+}
