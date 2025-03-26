@@ -5,6 +5,11 @@
   background-color: var(--color-dark);
   padding: var(--padding-x);
 
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
   a {
     text-decoration: none;
 

@@ -1,18 +1,18 @@
 # TODOS
 
-- Make UI better for filters
-- Preserve filters in UI after applying and loading filtered movies ✅
-- Genres in MovieItem overlay
 - Add feature for TV series
+- Genres in MovieItem overlay
+- Make UI better for filters ✅
+- Preserve filters in UI after applying and loading filtered movies ✅
 - more...
 
 # Business Requirements
 
 - Movies searching app
+- Movies can be sorted based on ratings.
+- Movies can be searched using filters like: genre, ratings, year (filters can be combined, horror + rating > 6 + 2021)
 - Movies can be searched via popular, top rated. ✅
 - Movies can be searched using a query string in an input field ✅
-- Movies can be searched using filters like: genre, ratings, year (filters can be combined, horror + rating > 6 + 2021)
-- Movies can be sorted based on ratings✅
 - Results will be fetched from an API ✅
 - Resulting movies will be displayed in a movies list with pagination ✅
 - Movie from the list can be selected and it's details can be viewed ✅

@@ -6,15 +6,12 @@ import styles from "./Filters.module.css";
 import Button from "../../ui/Button";
 
 const sortByOptions = ["popular", "rating"];
-const genreFunctionOptions = ["or", "and"];
 
 function Filters() {
   const [genres, setGenres] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   // for radio sort by
   const [sortBy, setSortBy] = useState(null);
-  // for genre combinator type = or (|)/ and (,)
-  const [genreFunction, setGenreFunction] = useState("or");
   // for genres
   const [genresBool, setGenresBool] = useState([]);
   const hasFilters = genresBool.includes(true) || sortBy;
@@ -57,16 +54,8 @@ function Filters() {
       // Preserve applied filters (if any)
       // - read filters from URL
       const { sortBy: urlSortBy, genres: genresStr } = urlParams;
-      // find genre function used
-      const urlGenreFn =
-        genresStr.indexOf("|") != -1
-          ? "or"
-          : genresStr.indexOf(",") != -1
-          ? "and"
-          : "or";
-      const selectedGenres = genresStr.split(urlGenreFn === "or" ? "|" : ",");
+      const selectedGenres = genresStr.split("|");
       // - reflect filters in UI
-      setGenreFunction(urlGenreFn);
       setSortBy(urlSortBy);
       setGenresBool((genBool) =>
         genBool.map((_, i) => selectedGenres.includes(genres[i].id + ""))
@@ -86,10 +75,9 @@ function Filters() {
       .filter((_, i) => genresBool[i])
       .map((genreObj) => genreObj.id);
 
-    // apply genre function
     const gotoUrl = createFilteredListUrl({
       sortBy,
-      genres: selectedGenres.join(genreFunction === "or" ? "|" : ","),
+      genres: selectedGenres.join("|"),
     });
 
     navigate(gotoUrl);
@@ -111,27 +99,7 @@ function Filters() {
       </Button>
       {showFilters && (
         <form onSubmit={handleSubmit}>
-          <div className={styles["form-row"]}>
-            <h4 className={styles["filter-heading"]}>Genre Function</h4>
-            <div className={styles["radio-options"]}>
-              {genreFunctionOptions.map((option) => (
-                <div key={option} className="form-group">
-                  <label htmlFor={option}>
-                    {option.charAt(0).toUpperCase() + option.slice(1)}
-                  </label>
-                  <input
-                    type="radio"
-                    name="genre_function"
-                    id={option}
-                    value={option}
-                    checked={genreFunction === option}
-                    onChange={() => setGenreFunction(option)}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={styles["form-row"]}>
+          <div className="form-row">
             <h4 className={styles["filter-heading"]}>Genres</h4>
             <div className={styles["genres-list"]}>
               {genres.map((genre, i) => (
@@ -145,9 +113,9 @@ function Filters() {
               ))}
             </div>
           </div>
-          <div className={styles["form-row"]}>
+          <div className="form-row">
             <h4 className={styles["filter-heading"]}>Sort By</h4>
-            <div className={styles["radio-options"]}>
+            <div className={styles["sortBy-options"]}>
               {sortByOptions.map((option) => (
                 <div key={option} className="form-group">
                   <label htmlFor={option}>
