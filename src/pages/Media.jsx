@@ -1,5 +1,4 @@
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import MovieList from "../features/movie/MovieList";
 import {
   createDiscoverUrl,
   createFilteredListUrl,
@@ -14,8 +13,9 @@ import {
 import Pagination from "../ui/Pagination";
 import Heading from "../ui/Heading";
 import Filters from "../features/filters/Filters";
+import MediaList from "../features/media/MediaList";
 
-function Movies() {
+function Media() {
   const loaderData = useLoaderData();
   const { resultsFor, results: data } = loaderData;
   const navigate = useNavigate();
@@ -46,12 +46,13 @@ function Movies() {
     if (urlParams.query) {
       const query = urlParams.query;
       // url for provided search results page
-      gotoUrl = createSearchUrl({ query, type: "movie", page });
+      gotoUrl = createSearchUrl({ query, type: urlParams.type, page });
     }
 
     if (urlParams.genres) {
       // url for media list after applying filters
       gotoUrl = createFilteredListUrl({
+        type: urlParams.type,
         sortBy: urlParams.sortBy,
         genres: urlParams.genres,
         page,
@@ -65,7 +66,7 @@ function Movies() {
     <div>
       <Filters />
       <Heading>Showing results for &ldquo;{resultsFor ?? ""}&rdquo;</Heading>
-      <MovieList movies={data?.results} />;
+      <MediaList media={data?.results} type={urlParams.type} />;
       <Pagination
         totalPages={data.total_pages}
         currentPage={data.page}
@@ -76,11 +77,11 @@ function Movies() {
 }
 
 export async function searchResultsLoader({ params }) {
-  const { query, page } = params;
+  const { type, query, page } = params;
 
   if (!query) throw new Error("query not provided");
   try {
-    const results = await getMedia({ query, type: "movie", page });
+    const results = await getMedia({ query, type, page });
     return { results, resultsFor: query };
   } catch (err) {
     console.error(err);
@@ -126,7 +127,7 @@ export async function discoverListLoader({ params }) {
   }
 }
 
-export async function filteredMoviesLoader({ params }) {
+export async function filteredMediaLoader({ params }) {
   try {
     const sortOptions = {
       popular: "popularity.desc",
@@ -141,6 +142,7 @@ export async function filteredMoviesLoader({ params }) {
     const results = await getDiscoveredMedia({
       page: params.page,
       filters,
+      type: params.type,
     });
     return { results };
   } catch (err) {
@@ -149,4 +151,4 @@ export async function filteredMoviesLoader({ params }) {
   }
 }
 
-export default Movies;
+export default Media;

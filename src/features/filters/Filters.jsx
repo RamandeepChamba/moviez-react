@@ -4,59 +4,77 @@ import { createFilteredListUrl, getGenres } from "../../services/apiTMDB";
 import Genre from "./Genre";
 import styles from "./Filters.module.css";
 import Button from "../../ui/Button";
+import RadioOptions from "../../ui/RadioOptions";
 
 const sortByOptions = ["popular", "rating"];
 const genreFunctionOptions = ["or", "and"];
 
 function Filters() {
+  const urlParams = useParams();
   const [genres, setGenres] = useState([]);
+  const movieGenres = useRef(null);
+  const tvGenres = useRef(null);
   const [showFilters, setShowFilters] = useState(false);
+  // for type
+  const [type, setType] = useState(() => urlParams.type ?? "movie");
   // for radio sort by
-  const [sortBy, setSortBy] = useState(null);
+  const [sortBy, setSortBy] = useState(() => urlParams.sortBy ?? "popular");
   // for genre combinator type = or (|)/ and (,)
   const [genreFunction, setGenreFunction] = useState("or");
   // for genres
   const [genresBool, setGenresBool] = useState([]);
-  const hasFilters = genresBool.includes(true) || sortBy;
+  const hasFilters = genresBool.includes(true) || sortBy || type;
   // genre was changed, so don't use URL genres anymore
   const genresReadFromUrl = useRef(false);
   const navigate = useNavigate();
-  const urlParams = useParams();
 
+  // Fetch genres based on type on start and whenever type changes
+  // and set genres to them
   useEffect(
     function () {
-      // fetch all genres from API
-      (async function getGenresFromApi() {
-        try {
-          const allGenres = await getGenres({ type: "movie" });
-          setGenres(allGenres);
-        } catch (err) {
-          throw new Error(err.message);
+      (async function () {
+        if (type === "movie") {
+          if (!movieGenres.current) {
+            // fetch movie genres
+            movieGenres.current = await getGenres({ type: "movie" });
+          }
+          setGenres(movieGenres.current);
+        }
+        if (type === "tv") {
+          if (!tvGenres.current) {
+            // fetch movie genres
+            tvGenres.current = await getGenres({ type: "tv" });
+          }
+          setGenres(tvGenres.current);
         }
       })();
     },
-    [urlParams]
+    [type]
   );
+
+  // create genresBool array based on the genres whenever genres changes
   useEffect(
     function () {
-      if (genres.length === 0 || genresReadFromUrl.current) return;
+      if (genres.length === 0) return;
       // fill genresBool array
       setGenresBool(genres.slice().fill(false));
     },
     [genres]
   );
+
+  // read genres from URL
   useEffect(
     function () {
+      // if genres already read from URL or no genres in url - return
       if (
-        genresBool.length === 0 ||
-        genresBool.includes(true) ||
-        !urlParams.sortBy ||
-        genresReadFromUrl.current
+        genresReadFromUrl.current ||
+        urlParams.genres === "all" ||
+        !urlParams.genres ||
+        genres.length === 0
       )
         return;
-      // Preserve applied filters (if any)
-      // - read filters from URL
-      const { sortBy: urlSortBy, genres: genresStr } = urlParams;
+      // else, select genres which are in the URL
+      const { genres: genresStr } = urlParams;
       // find genre function used
       const urlGenreFn =
         genresStr.indexOf("|") != -1
@@ -65,22 +83,19 @@ function Filters() {
           ? "and"
           : "or";
       const selectedGenres = genresStr.split(urlGenreFn === "or" ? "|" : ",");
-      // - reflect filters in UI
       setGenreFunction(urlGenreFn);
-      setSortBy(urlSortBy);
       setGenresBool((genBool) =>
         genBool.map((_, i) => selectedGenres.includes(genres[i].id + ""))
       );
+      console.log();
       genresReadFromUrl.current = true;
     },
-    [urlParams, genres, genresBool]
+    [genresBool]
   );
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!sortBy && !genresBool.includes(true)) {
-      return;
-    }
+
     // selected genres
     const selectedGenres = genres
       .filter((_, i) => genresBool[i])
@@ -90,8 +105,8 @@ function Filters() {
     const gotoUrl = createFilteredListUrl({
       sortBy,
       genres: selectedGenres.join(genreFunction === "or" ? "|" : ","),
+      type,
     });
-
     navigate(gotoUrl);
   }
 
@@ -111,6 +126,33 @@ function Filters() {
       </Button>
       {showFilters && (
         <form onSubmit={handleSubmit}>
+          {/* Type */}
+          <div className={styles["form-row"]}>
+            <h4 className={styles["filter-heading"]}>Type</h4>
+            <RadioOptions>
+              <div>
+                <label htmlFor="filter-movie">Movie</label>
+                <input
+                  type="radio"
+                  name="type"
+                  id="filter-movie"
+                  checked={type === "movie"}
+                  onChange={() => setType("movie")}
+                />
+              </div>
+              <div>
+                <label htmlFor="filter-tv">TV</label>
+                <input
+                  type="radio"
+                  name="type"
+                  id="filter-tv"
+                  checked={type === "tv"}
+                  onChange={() => setType("tv")}
+                />
+              </div>
+            </RadioOptions>
+          </div>
+          {/* Genre function */}
           <div className={styles["form-row"]}>
             <h4 className={styles["filter-heading"]}>Genre Function</h4>
             <div className={styles["radio-options"]}>
@@ -131,6 +173,7 @@ function Filters() {
               ))}
             </div>
           </div>
+          {/* Genres */}
           <div className={styles["form-row"]}>
             <h4 className={styles["filter-heading"]}>Genres</h4>
             <div className={styles["genres-list"]}>
@@ -145,6 +188,7 @@ function Filters() {
               ))}
             </div>
           </div>
+          {/* Sort By */}
           <div className={styles["form-row"]}>
             <h4 className={styles["filter-heading"]}>Sort By</h4>
             <div className={styles["radio-options"]}>
@@ -165,6 +209,7 @@ function Filters() {
               ))}
             </div>
           </div>
+
           <Button type="submit" variation="brand" className={styles.submit}>
             Search
           </Button>

@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home, { loader as popularAndTopRatedLoader } from "./pages/Home";
-import Movies, {
+import Media, {
   searchResultsLoader,
   topicListLoader,
   discoverListLoader,
-  filteredMoviesLoader,
-} from "./pages/Movies";
+  filteredMediaLoader,
+} from "./pages/Media";
 import Movie, { loader as mediaDetailsLoader } from "./pages/Movie";
 import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
         loader: popularAndTopRatedLoader,
       },
       {
-        path: "/moviez-react/movie/search/:query/:page",
-        element: <Movies />,
+        path: "/moviez-react/:type/search/:query/:page",
+        element: <Media />,
         loader: searchResultsLoader,
       },
       {
@@ -32,18 +32,18 @@ const router = createBrowserRouter([
       },
       {
         path: "/moviez-react/movie/list/:topic/:page",
-        element: <Movies />,
+        element: <Media />,
         loader: topicListLoader,
       },
       {
         path: "/moviez-react/movie/discover/:filter/:id/:page",
-        element: <Movies />,
+        element: <Media />,
         loader: discoverListLoader,
       },
       {
-        path: "/moviez-react/movie/filter/:sortBy/:genres/:page",
-        element: <Movies />,
-        loader: filteredMoviesLoader,
+        path: "/moviez-react/:type/filter/:sortBy/:genres/:page",
+        element: <Media />,
+        loader: filteredMediaLoader,
       },
     ],
   },

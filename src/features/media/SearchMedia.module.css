@@ -11,3 +11,14 @@
     }
   }
 }
+.radio-options {
+  display: flex;
+  color: var(--color-light-3);
+
+  align-items: center;
+  gap: 1rem;
+  margin-right: 2rem;
+}
+.searchbar {
+  margin-left: 3rem;
+}

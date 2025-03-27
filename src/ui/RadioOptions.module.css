@@ -1,0 +1,11 @@
+.radio-options {
+  display: flex;
+  color: var(--color-light-3);
+  gap: 1rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}

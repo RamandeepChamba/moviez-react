@@ -1,23 +1,23 @@
-// const tv = {
+// const movie = {
 //   "adult": false,
-//   "backdrop_path": "/uCsKIN7aMUoYN3686E5W6iiOEjc.jpg",
+//   "backdrop_path": null,
 //   "genre_ids": [
-//     18
+//     18,
+//     10770
 //   ],
-//   "id": 17780,
-//   "origin_country": [
-//     "US"
-//   ],
+//   "id": 581510,
 //   "original_language": "en",
-//   "original_name": "King",
-//   "overview": "The story of Dr. Martin Luther King Jr., stretching from his days as a Southern Baptist minister in the South of the 1950s until his assassination in Memphis in 1968.",
-//   "popularity": 0.8959,
-//   "poster_path": "/tD71a5wWJqLFuCOXdnBP5uD5kFc.jpg",
-//   "first_air_date": "1978-02-12",
-//   "name": "King",
-//   "vote_average": 6.8,
-//   "vote_count": 10
+//   "original_title": "King",
+//   "overview": "A man who has had a good life in England wants to retire to Jamaica, but the celebration with his daughters doesn't go as expected.",
+//   "popularity": 0.0748,
+//   "poster_path": "/59OEbxgqtC1RyveO1824jchmDSv.jpg",
+//   "release_date": "1984-04-03",
+//   "title": "King",
+//   "video": false,
+//   "vote_average": 0,
+//   "vote_count": 0
 // },
+// import { Link } from "react-router-dom";
 import StyledLink from "../../ui/StyledLink";
 import Image from "../../ui/Image";
 import styles from "./MovieItem.module.css";
