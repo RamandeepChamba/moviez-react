@@ -17,7 +17,6 @@ function Genre({ genre, index, genresBool, onChange }) {
         type="checkbox"
         name="genre"
         id={id}
-        value={id}
         className={styles["checkbox-hidden"]}
         checked={checked}
         onChange={() => onChange(index)}

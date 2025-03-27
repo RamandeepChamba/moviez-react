@@ -6,6 +6,11 @@
 - Preserve filters in UI after applying and loading filtered movies ✅
 - more...
 
+# BUGS
+
+- genres in filters not preserving when viewing movie details and coming back (sometimes) ✅  
+  sol: was occuring because of strict mode, useEffect was running twice
+
 # Business Requirements
 
 - Movies searching app

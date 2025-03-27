@@ -49,7 +49,7 @@ function Filters() {
         }
       })();
     },
-    [type]
+    [type, setGenres]
   );
 
   // create genresBool array based on the genres whenever genres changes
@@ -87,7 +87,6 @@ function Filters() {
       setGenresBool((genBool) =>
         genBool.map((_, i) => selectedGenres.includes(genres[i].id + ""))
       );
-      console.log();
       genresReadFromUrl.current = true;
     },
     [genresBool]

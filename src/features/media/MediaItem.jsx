@@ -49,7 +49,9 @@ import { HiStar } from "react-icons/hi2";
 function MediaItem({ mediaItem, type }) {
   const name = type === "movie" ? mediaItem.title : mediaItem.name;
   const releaseDate =
-    type === "movie" ? mediaItem.release_date : mediaItem.first_air_date;
+    type === "movie"
+      ? mediaItem.release_date ?? "N/A"
+      : mediaItem.first_air_date ?? "N/A";
 
   // TODO - if medium is "tv" fetch number of seasons and display them
   return (
@@ -69,7 +71,9 @@ function MediaItem({ mediaItem, type }) {
             </span>
             <span className={styles.rating}>
               <HiStar />
-              {formatDecimalPlaces(mediaItem.vote_average, 1)}
+              {mediaItem.vote_average
+                ? formatDecimalPlaces(mediaItem.vote_average, 1)
+                : "N/A"}
             </span>
           </div>
         </div>
