@@ -1,6 +1,7 @@
 # TODOS
 
-- Add feature for TV series
+- Add feature for TV series  
+   show seasons in tv detailed
 - Genres in MovieItem overlay
 - Make UI better for filters ✅
 - Preserve filters in UI after applying and loading filtered movies ✅

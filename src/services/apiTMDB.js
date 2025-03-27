@@ -66,20 +66,43 @@ export async function getMediaList({ type, topic, page = 1 }) {
 }
 
 export async function getPopularAndTopRated() {
-  const type = "movie";
   const page = 1;
+  const movies = {};
+  const tv = {};
   try {
-    // get popular
-    const popularMedia = await getMediaList({ type, topic: "popular", page });
-    // get top rated
-    const topRatedMedia = await getMediaList({
-      type,
+    // get popular movies
+    movies.popular = await getMediaList({
+      type: "movie",
+      topic: "popular",
+      page,
+    });
+    // get top rated movies
+    movies.topRated = await getMediaList({
+      type: "movie",
+      topic: "top_rated",
+      page,
+    });
+    // get popular tv
+    tv.popular = await getMediaList({
+      type: "tv",
+      topic: "popular",
+      page,
+    });
+    // get top rated tv
+    tv.topRated = await getMediaList({
+      type: "tv",
       topic: "top_rated",
       page,
     });
     return {
-      popular: popularMedia.results.slice(0, 6),
-      topRated: topRatedMedia.results.slice(0, 6),
+      movies: {
+        popular: movies.popular.results.slice(0, 6),
+        topRated: movies.topRated.results.slice(0, 6),
+      },
+      tv: {
+        popular: tv.popular.results.slice(0, 6),
+        topRated: tv.topRated.results.slice(0, 6),
+      },
     };
   } catch (err) {
     throw new Error(err.message);
@@ -95,6 +118,7 @@ export async function getDiscoveredMedia({ type = "movie", page, filters }) {
     (acc, filter) => `${acc}&${filter.name}=${filter.value}`,
     ""
   );
+  // Note: Tv doesn't have discover by cast option
   const url = `${API_URL}/discover/${type}?page=${page}${filtersStr}`;
   try {
     const results = await getFromApi(url);
@@ -127,8 +151,8 @@ export async function getPersonById(id) {
   }
 }
 
-export async function getGenreById(id) {
-  const url = `${API_URL}/genre/movie/list`;
+export async function getGenreById({ id, type }) {
+  const url = `${API_URL}/genre/${type}/list`;
 
   try {
     const genresObj = await getFromApi(url);

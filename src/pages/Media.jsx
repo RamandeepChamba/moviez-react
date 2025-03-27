@@ -26,7 +26,7 @@ function Media() {
     if (urlParams.topic) {
       // url for provided topic list page
       gotoUrl = createTopicListUrl({
-        type: "movie",
+        type: urlParams.type,
         topic: urlParams.topic,
         page,
       });
@@ -36,7 +36,7 @@ function Media() {
       const { filter, id } = urlParams;
       // url for discovered by filter list page
       gotoUrl = createDiscoverUrl({
-        type: "movie",
+        type: urlParams.type,
         filter,
         id,
         page,
@@ -90,16 +90,16 @@ export async function searchResultsLoader({ params }) {
 }
 
 export async function topicListLoader({ params }) {
-  const { topic, page } = params;
+  const { type, topic, page } = params;
   try {
-    const results = await getMediaList({ type: "movie", topic, page });
+    const results = await getMediaList({ type, topic, page });
     return { results, resultsFor: topic };
   } catch (err) {
     console.error(err);
     throw new Error(err.message);
   }
 }
-
+// Discover by cast or genres results
 export async function discoverListLoader({ params }) {
   try {
     const filterOptions = {
@@ -107,6 +107,7 @@ export async function discoverListLoader({ params }) {
       cast: "with_cast",
     };
     const results = await getDiscoveredMedia({
+      type: params.filter === "cast" ? "movie" : params.type,
       page: params.page,
       filters: [{ name: filterOptions[params.filter], value: params.id }],
     });
@@ -118,7 +119,7 @@ export async function discoverListLoader({ params }) {
     }
     if (params.filter === "genre") {
       // get genre by id
-      resultsFor = await getGenreById(params.id);
+      resultsFor = await getGenreById({ id: params.id, type: params.type });
     }
     return { results, resultsFor };
   } catch (err) {
@@ -127,6 +128,7 @@ export async function discoverListLoader({ params }) {
   }
 }
 
+// Filter results
 export async function filteredMediaLoader({ params }) {
   try {
     const sortOptions = {

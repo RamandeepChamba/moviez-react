@@ -6,7 +6,7 @@ import Media, {
   discoverListLoader,
   filteredMediaLoader,
 } from "./pages/Media";
-import Movie, { loader as mediaDetailsLoader } from "./pages/Movie";
+import MediaSingle, { loader as mediaDetailsLoader } from "./pages/MediaSingle";
 import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
 
@@ -26,17 +26,17 @@ const router = createBrowserRouter([
         loader: searchResultsLoader,
       },
       {
-        path: "/moviez-react/movie/:id",
-        element: <Movie />,
+        path: "/moviez-react/:type/:id",
+        element: <MediaSingle />,
         loader: mediaDetailsLoader,
       },
       {
-        path: "/moviez-react/movie/list/:topic/:page",
+        path: "/moviez-react/:type/list/:topic/:page",
         element: <Media />,
         loader: topicListLoader,
       },
       {
-        path: "/moviez-react/movie/discover/:filter/:id/:page",
+        path: "/moviez-react/:type/discover/:filter/:id/:page",
         element: <Media />,
         loader: discoverListLoader,
       },
