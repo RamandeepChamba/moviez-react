@@ -4,6 +4,10 @@
   flex-wrap: wrap;
   gap: 1.5rem;
 
+  @media (max-width: 1200px) {
+    justify-content: flex-start;
+  }
+
   li {
     /* 2:3 */
     width: 18rem;

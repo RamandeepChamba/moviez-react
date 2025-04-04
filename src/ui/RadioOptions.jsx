@@ -1,6 +1,8 @@
 import styles from "./RadioOptions.module.css";
-function RadioOptions({ children }) {
-  return <div className={styles["radio-options"]}>{children}</div>;
+function RadioOptions({ children, className }) {
+  return (
+    <div className={`${styles["radio-options"]} ${className}`}>{children}</div>
+  );
 }
 
 export default RadioOptions;

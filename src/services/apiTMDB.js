@@ -1,6 +1,7 @@
 const API_URL = "https://api.themoviedb.org/3";
 const BASE_SITE_URL = "/moviez-react";
 
+// HELPERS
 async function getFromApi(url) {
   const accessToken = `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`;
   try {
@@ -16,6 +17,15 @@ async function getFromApi(url) {
   } catch (err) {
     throw new Error(err.message);
   }
+}
+
+// Fetches 'count' number of crew with 'role'
+function filterCrew(cast, role, count) {
+  // - from cast arr only select people where role is "role"
+  const crewWithRole = cast.filter(
+    (person) => person["known_for_department"] === role
+  );
+  return crewWithRole.slice(0, count);
 }
 
 // Get media list
@@ -41,11 +51,37 @@ export async function getMediaDetails({ type, id }) {
     // Get cast
     const credits = await getFromApi(urlCredits);
     const cast = credits.cast;
-    // - from cast arr only select elements where role is acting
-    const actors = cast.filter(
-      (person) => person["known_for_department"] === "Acting"
-    );
-    return { details: mediaDetails, cast: actors.slice(0, 4) };
+    return { details: mediaDetails, cast: filterCrew(cast, "Acting", 4) };
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
+// Get Tv season or episode details
+export async function getSeasonEpisodeDetails({
+  seriesId,
+  seasonNum,
+  episodeNum = null,
+}) {
+  let detailsUrl;
+  let creditsUrl;
+  if (episodeNum) {
+    detailsUrl = `${API_URL}/tv/${seriesId}/season/${seasonNum}/episode/${episodeNum}`;
+    creditsUrl = `${API_URL}/tv/${seriesId}/season/${seasonNum}/episode/${episodeNum}/credits`;
+  } else {
+    detailsUrl = `${API_URL}/tv/${seriesId}/season/${seasonNum}`;
+    creditsUrl = `${API_URL}/tv/${seriesId}/season/${seasonNum}/credits`;
+  }
+  // https://api.themoviedb.org/3/tv/1418/season/2/episode/2
+  try {
+    // Get details
+    const seasonEpisodeDetails = await getFromApi(detailsUrl);
+    // Get cast
+    const credits = await getFromApi(creditsUrl);
+    return {
+      details: seasonEpisodeDetails,
+      cast: filterCrew(credits.cast, "Acting", 4),
+    };
   } catch (err) {
     throw new Error(err.message);
   }

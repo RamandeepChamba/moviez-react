@@ -5,6 +5,7 @@
   background-color: var(--color-dark);
   overflow: hidden;
   border-radius: var(--border-radius-sm);
+  background: var(--backdrop-poster-path);
 
   @media (max-width: 1600px) {
     flex-basis: 57rem;

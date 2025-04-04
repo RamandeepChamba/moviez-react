@@ -1,11 +1,8 @@
-import { useContext } from "react";
 import { createDiscoverUrl, tmdbImageBaseUrl } from "../../../services/apiTMDB";
 import styles from "./Cast.module.css";
-import { MediaItemContext } from "./MediaDetailed";
 import { Link } from "react-router-dom";
 
-function Cast() {
-  const { cast, type } = useContext(MediaItemContext);
+function Cast({ cast }) {
   return (
     <div>
       <h2>Cast</h2>

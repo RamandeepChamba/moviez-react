@@ -1,13 +1,17 @@
-import { useContext } from "react";
 import { tmdbImageBaseUrl } from "../../../services/apiTMDB";
 import styles from "./Poster.module.css";
-import { MediaItemContext } from "./MediaDetailed";
 
-function Poster() {
-  const { mediaItem } = useContext(MediaItemContext);
+function Poster({ path, backdropPath = "" }) {
   return (
-    <div className={styles.poster}>
-      <img src={`${tmdbImageBaseUrl}/${mediaItem.poster_path}`} alt="poster" />
+    <div
+      className={styles.poster}
+      style={{
+        "--backdrop-poster-path": backdropPath
+          ? `${tmdbImageBaseUrl}/${backdropPath}`
+          : "",
+      }}
+    >
+      <img src={`${tmdbImageBaseUrl}/${path}`} alt="poster" />
     </div>
   );
 }

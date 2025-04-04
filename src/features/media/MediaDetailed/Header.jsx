@@ -1,13 +1,10 @@
 import { HiStar } from "react-icons/hi2";
 import styles from "./Header.module.css";
-import { useContext } from "react";
-import { MediaItemContext } from "./MediaDetailed";
 import { formatDecimalPlaces } from "../../../utils/helpers";
 import { createDiscoverUrl } from "../../../services/apiTMDB";
 import StyledLink from "../../../ui/StyledLink";
 
-function Header() {
-  const { mediaItem, type } = useContext(MediaItemContext);
+function Header({ mediaItem, type }) {
   const name = type === "movie" ? mediaItem.title : mediaItem.name;
   return (
     <div className={styles.header}>

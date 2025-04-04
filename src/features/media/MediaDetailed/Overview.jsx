@@ -1,11 +1,8 @@
-import { useContext } from "react";
-import { MediaItemContext } from "./MediaDetailed";
-function Overview() {
-  const { mediaItem } = useContext(MediaItemContext);
+function Overview({ overview }) {
   return (
     <div>
       <h2>Overview</h2>
-      <p>{mediaItem.overview}</p>
+      <p>{overview}</p>
     </div>
   );
 }

@@ -1,5 +1,10 @@
 .form {
   display: flex;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+
   input {
     background-color: var(--color-light);
     padding: 0.5rem;
@@ -12,13 +17,14 @@
   }
 }
 .radio-options {
-  display: flex;
-  color: var(--color-light-3);
-
-  align-items: center;
-  gap: 1rem;
-  margin-right: 2rem;
+  @media (max-width: 600px) {
+    align-self: center;
+  }
 }
 .searchbar {
   margin-left: 3rem;
+
+  @media (max-width: 600px) {
+    margin: 1rem 0 0.5rem 0;
+  }
 }

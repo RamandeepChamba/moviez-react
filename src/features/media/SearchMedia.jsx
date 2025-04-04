@@ -19,7 +19,7 @@ function SearchMediaForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <RadioOptions>
+      <RadioOptions className={styles["radio-options"]}>
         <div>
           <label htmlFor="movie">Movie</label>
           <input
