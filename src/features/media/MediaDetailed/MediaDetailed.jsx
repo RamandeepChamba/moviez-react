@@ -25,9 +25,6 @@ function MediaDetailed({ mediaSingle }) {
   const [seasonPoster, setSeasonPoster] = useState(null);
   const [fetchedEpisode, setFetchedEpisode] = useState(false);
 
-  console.log("single", mediaSingle);
-  console.log("detailed", detailsOfSpecific);
-
   const dropdownStyles = {
     option: (baseStyles, state) => ({
       ...baseStyles,
